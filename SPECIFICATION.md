@@ -1,4 +1,4 @@
-# The FontoBene Font Format, Version 1.0
+# The FontoBene Font Format, Version 1.0-WIP
 
 
 ## Introduction
