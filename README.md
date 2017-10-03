@@ -14,3 +14,11 @@ You can find the current version of the specification at
 
 **The specification is still work in progress. It will be stabilized in the
 coming weeks, together with a formal grammar and a reference implementation.**
+
+## License
+
+[![CC0](http://i.creativecommons.org/p/zero/1.0/88x31.png)](http://creativecommons.org/publicdomain/zero/1.0/)
+
+To the extent possible under law, [The FontoBene Developers](https://github.com/fontobene)
+have waived all copyright and related or neighboring rights to *The FontoBene
+Specifications*.
