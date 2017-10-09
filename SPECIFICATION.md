@@ -120,7 +120,7 @@ References start with the "C" symbol (U+0043), followed by a codepoint. Here is
 the definition of the glyph for the character "LATIN CAPITAL LETTER A WITH
 CIRCUMFLEX (U+00C2)":
 
-    [00c2] Â
+    [00C2] Â
     C0041
     1.5,11.5;3,13;4.5,11.5
 
