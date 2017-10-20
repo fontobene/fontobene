@@ -160,7 +160,7 @@ TODO
 | --- | --- | --- | --- |
 | name | The name of this font. | 1 | `LibrePCB Font` |
 | id | The identifier of this font. MUST only contain lowercase letters and minus characters. MUST start and end with a lowercase letter. | 1 | `librepcb` |
-| version | The version of this font. SHOULD follow semantic versioning. | 0-1 | `0.4.1` |
+| version | The version of this font. SHOULD follow semantic versioning. | 1 | `0.4.1` |
 | author | The name of the copyright owner, in the format `Name <email>`. The email part is optional. | 0-n | `Max Müller <max@foo>` |
 | license | The SPDX identifier for the license of this font. Create multiple `License` entries if the font is published under multiple licenses. | 1-n | `Apache-2.0` |
 
