@@ -116,15 +116,15 @@ LETTER A (U+0041)":
 #### References
 
 Because many glyphs are very similar, references may be used as "includes".
-References start with the "C" symbol (U+0043), followed by a codepoint. Here is
+References start with the "@" symbol (U+0040), followed by a codepoint. Here is
 the definition of the glyph for the character "LATIN CAPITAL LETTER A WITH
 CIRCUMFLEX (U+00C2)":
 
     [00C2] Â
-    C0041
+    @0041
     1.5,11.5;3,13;4.5,11.5
 
-An implementation would simply replace the "C0041" part with the expanded
+An implementation would simply replace the "@0041" part with the expanded
 polylines from the referenced glyph.
 
 Multiple references can be used in a single glyph definition, but they must all
