@@ -30,7 +30,8 @@ Inline comments are not allowed.
 
 The header consists of INI style sections with key-value pairs. Key and value
 are separated by an equal sign (`=`). Both keys and values are strings. All
-whitespace around keys and values should be stripped.
+whitespace around keys and values should be stripped. Empty keys or values are
+not allowed.
 
 There are currently three sections defined: `[format]`, `[font]` and `[user]`.
 The `[format]` and `[font]` sections may only contain keys standardized in this
@@ -143,7 +144,70 @@ The FontoBene format follows [Semantic Versioning version 2][semver-2].
 
 ### Grammar (PEG)
 
-TODO
+This is the [PEG](https://en.wikipedia.org/wiki/Parsing_expression_grammar)
+grammar written for the [Pest](https://github.com/pest-parser/pest) parser
+generator. You can find the full grammar, unit tests and a reference parser at
+https://github.com/fontobene/fontobene-rs.
+
+    // Pest modifiers:
+    // _ -> Silent (no token pairs, no error reporting)
+    // @ -> Atomic (No whitespace, cascading)
+    // $ -> Compound atomic (Like atomic but not cascading)
+    // ! -> Non-atomic (Stop cascading of atomics)
+    //
+    // The entire rule format is specified here:
+    // https://docs.rs/pest_derive/
+
+    // Helpers
+    nonl = _{ !newline ~ any }
+
+    // Hex literals
+    char       = _{ 'a'..'z' | 'A'..'Z' }
+    hex        = _{ "0" | hex_nozero }
+    hex_nozero = _{ '1'..'9' | 'A'..'F' }
+
+    // Numeric literals
+    digit  = _{ '0'..'9' }
+    digits = @{ digit+ }
+    int    = @{ "0" | ('1'..'9' ~ digits?) }
+    number = @{ "-"? ~ int ~ ("." ~ digits)? }
+
+    // Strings
+    string = @{ !whitespace ~ nonl ~ nonl* }
+
+    // Identifiers
+    ident = @{ char ~ (char | "_")* }
+
+    // Header definitions
+    header_section = ${ "[" ~ ident ~ "]" }
+    header_key     = ${ ident }
+    header_value   = ${ string }
+    header_item    =  { header_key ~ "=" ~ header_value }
+    header_part    =  { header_section ~ newline ~ header_item ~ (newline ~ header_item)* }
+    header         =  { ( (header_part | comment) ~ newline* )+ }
+
+    // Glyph definitions
+    codepoint   = ${ hex_nozero ~ hex ~ hex ~ hex ~ hex ~ hex |
+                     hex_nozero ~ hex ~ hex ~ hex ~ hex |
+                     hex ~ hex ~ hex ~ hex }
+    glyph       = @{ "[" ~ codepoint ~ "]" }
+    declaration =  { glyph ~ nonl* }
+    reference   = ${ "@" ~ codepoint }
+    coord_pair  = ${ number ~ "," ~ number ~ ("," ~ number)? }
+    polyline    = ${ coord_pair ~ (";" ~ coord_pair)* }
+    bodyitem    = _{ (reference | polyline) }
+    definition  =  { declaration ~ newline ~ bodyitem ~ (newline ~ bodyitem)* }
+
+    // Main rule
+    main = { soi ~ header ~ (definition ~ newline+)+ ~ eoi }
+
+    // Newlines
+    newline = _{ "\n" | "\r\n" }
+
+    // Special rules, automatically inserted in non-atomic rules.
+    // See https://docs.rs/pest_derive/1.0.0-beta.15/pest_derive/
+    whitespace = _{ " " | "\t" }
+    comment = _{ "#" ~ nonl* }
 
 ### Standardized Headers
 
