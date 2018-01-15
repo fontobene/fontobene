@@ -92,7 +92,8 @@ It consists of coordinate pairs, separated by semicolons (`;`). The X and Y
 coordinates are separated with a comma (`,`).  The coordinates are arbitrary
 precision floating point numbers using the full stop (U+002E) as decimal mark.
 If a coordinate is a whole number, the decimal mark and the fractional part of
-the number may be omitted.
+the number may be omitted. If the integer part is zero and there is a fractional
+part, the zero may be omitted (e.g. `-.5` instead of `-0.5`).
 
 The coordinate system starts at the lower left corner. Positive X coordinates
 point to the right. Positive Y coordinates point to the top. Negative
