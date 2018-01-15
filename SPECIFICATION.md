@@ -30,7 +30,8 @@ Inline comments are not allowed.
 
 The header consists of INI style sections with key-value pairs. Key and value
 are separated by an equal sign (`=`). Both keys and values are strings. All
-whitespace around keys and values should be stripped.
+whitespace around keys and values should be stripped. Sections are separated by
+at least one empty line.
 
 There are currently three sections defined: `[format]`, `[font]` and `[user]`.
 The `[format]` and `[font]` sections may only contain keys standardized in this
@@ -53,11 +54,14 @@ Example:
     [user]
     comment = This is the official font used for LibrePCB projects.
 
+    ---
+
 
 ### Body
 
-The first empty line separates the header from the body. The body consists of
-glyph definition blocks separated by at least one empty line.
+The header is separated from the body by three hyphens (U+002D HYPHEN-MINUS) on
+a single line (`---`). The body consists of glyph definition blocks separated
+by at least one empty line.
 
 Every glyph definition starts with the glyph declaration, a unicode codepoint
 in square brackets (e.g. `[1F4A9]` for the pile of poo character). It may
