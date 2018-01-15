@@ -165,14 +165,5 @@ TODO
 | author | The name of the copyright owner, in the format `Name <email>`. The email part is optional. | 0-n | `Max Müller <max@foo>` |
 | license | The SPDX identifier for the license of this font. Create multiple `License` entries if the font is published under multiple licenses. | 1-n | `Apache-2.0` |
 
-
-## Appendix
-
-### Main Differences from LFF
-
-* Header fields are standardized
-* File encoding is fixed to UTF-8
-* Glyphs are identified by Unicode code point, not by UTF-16 bytes
-
 [unicode-10-spec]: http://www.unicode.org/versions/Unicode10.0.0/UnicodeStandard-10.0.pdf
 [semver-2]: http://semver.org/spec/v2.0.0.html
