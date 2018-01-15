@@ -34,7 +34,8 @@ whitespace around keys and values should be stripped.
 
 There are currently three sections defined: `[format]`, `[font]` and `[user]`.
 The `[format]` and `[font]` sections may only contain keys standardized in this
-specification. The `[user]` section may contain arbitrary key value pairs.
+specification (see section "Formal Specification"). The `[user]` section may
+contain arbitrary key value pairs.
 
 Example:
 
@@ -51,8 +52,6 @@ Example:
 
     [user]
     comment = This is the official font used for LibrePCB projects.
-
-The valid keys are standardized in the "Formal Specification" section.
 
 
 ### Body
