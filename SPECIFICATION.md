@@ -120,20 +120,20 @@ LETTER A (U+0041)":
 ##### Circular Arc Segments
 
 In addition to straight lines, polylines can contain circular arc segments.
-This is done by adding a third parameter, called *bulge*, to the coordinate
-pair of the end coordinate of an arc segment. It specifies the central angle of
-the circular arc segment. The bulge is a value from -9 to +9 and represents an
-angle in degrees from -180° to +180°. A positive angle describes a counter
-clockwise arc segment from the start point to the end point, while a negative
-angle describes a clockwise arc segment. If an arc segment with more than 180°
-is required, it must be split up into two smaller arc segments.
+This is done by adding a third parameter, called *bulge*, to the **start
+coordinate** of the arc segment. It specifies the central angle of the circular
+arc segment. The bulge is a value from -9 to +9 and represents an angle in
+degrees from -180° to +180°. A positive angle describes a counter clockwise arc
+segment from the start point to the end point, while a negative angle describes
+a clockwise arc segment. If an arc segment with more than 180° is required, it
+must be split up into two smaller arc segments.
 
 ![circular segment](images/circular_segment.png)
 
 Example:
 
     [0066] f
-    1,0;1,7.5;2.5,9,-4.5;3,9
+    1,0;1,7.5,-4.5;2.5,9;3,9
     0,6;3,6
 
 #### References
