@@ -45,8 +45,8 @@ Example:
     format_version = 1.0
 
     [font]
-    name = LibrePCB Font
     id = librepcb
+    name = LibrePCB Font
     author = Max Müller <max@example.com>
     version = 1.0
     license = GPL-3.0+
@@ -181,8 +181,8 @@ TODO
 
 | Name | Description | Count | Example |
 | --- | --- | --- | --- |
-| name | The name of this font. | 1 | `LibrePCB Font` |
 | id | The identifier of this font. MUST only contain lowercase letters and minus characters. MUST start and end with a lowercase letter. | 1 | `librepcb` |
+| name | The name of this font. | 1 | `LibrePCB Font` |
 | version | The version of this font. SHOULD follow semantic versioning. | 1 | `0.4.1` |
 | author | The name of the copyright owner, in the format `Name <email>`. The email part is optional. | 0-n | `Max Müller <max@foo>` |
 | license | The SPDX identifier for the license of this font. Create multiple `License` entries if the font is published under multiple licenses. | 1-n | `Apache-2.0` |
