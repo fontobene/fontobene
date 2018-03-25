@@ -53,7 +53,8 @@ Example:
     license = GPL-3.0+
 
     [user]
-    comment = This is the official font used for LibrePCB projects.
+    last_modified = 2012-12-21
+    todo = Add U+03A9 (GREEK CAPITAL LETTER OMEGA)
 
     ---
 
