@@ -45,14 +45,16 @@ Example:
     format_version = 1.0
 
     [font]
-    name = LibrePCB Font
     id = librepcb
+    name = LibrePCB Font
+    description = This is the default font of LibrePCB.
     author = Max Müller <max@example.com>
     version = 1.0
     license = GPL-3.0+
 
     [user]
-    comment = This is the official font used for LibrePCB projects.
+    last_modified = 2012-12-21
+    todo = Add U+03A9 (GREEK CAPITAL LETTER OMEGA)
 
     ---
 
@@ -181,8 +183,9 @@ TODO
 
 | Name | Description | Count | Example |
 | --- | --- | --- | --- |
-| name | The name of this font. | 1 | `LibrePCB Font` |
 | id | The identifier of this font. MUST only contain lowercase letters and minus characters. MUST start and end with a lowercase letter. | 1 | `librepcb` |
+| name | The name of this font. | 1 | `LibrePCB Font` |
+| description | Short description about this font (optional). | 0-1 | `This is an example.` |
 | version | The version of this font. SHOULD follow semantic versioning. | 1 | `0.4.1` |
 | author | The name of the copyright owner, in the format `Name <email>`. The email part is optional. | 0-n | `Max Müller <max@foo>` |
 | license | The SPDX identifier for the license of this font. Create multiple `License` entries if the font is published under multiple licenses. | 1-n | `Apache-2.0` |
