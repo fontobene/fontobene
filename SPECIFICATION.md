@@ -188,7 +188,7 @@ TODO
 | description | Short description about this font (optional). | 0-1 | `This is an example.` |
 | version | The version of this font. SHOULD follow semantic versioning. | 1 | `0.4.1` |
 | author | The name of the copyright owner, in the format `Name <email>`. The email part is optional. | 0-n | `Max Müller <max@foo>` |
-| license | The SPDX identifier for the license of this font. Create multiple `License` entries if the font is published under multiple licenses. | 1-n | `Apache-2.0` |
+| license | The SPDX identifier for the license of this font. Create multiple `license` entries if the font is published under multiple licenses. | 1-n | `Apache-2.0` |
 
 [unicode-10-spec]: http://www.unicode.org/versions/Unicode10.0.0/UnicodeStandard-10.0.pdf
 [semver-2]: http://semver.org/spec/v2.0.0.html
