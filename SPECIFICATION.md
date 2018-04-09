@@ -51,6 +51,7 @@ Example:
     author = Max Müller <max@example.com>
     version = 1.0
     license = GPL-3.0+
+    letter_spacing = 1.8
 
     [user]
     last_modified = 2012-12-21
@@ -84,8 +85,14 @@ Points*][unicode-10-spec]:
 >
 > The U+ may be omitted for brevity in tables or when denoting ranges.
 
-The glyph declaration is followed by a list of polylines or glyph references,
-each on a single line.
+The glyph declaration is followed by a list of glyph references, polylines or
+whitespace definitions, each on a single line. The order and quantity of these
+three things MUST be as following:
+
+1. 0-n references (e.g. `@0041`)
+2. 0-n polylines (e.g. `1,0;1,7.5,-4.5;2.5,9;3,9`)
+3. 0-1 whitespace definitions (e.g. `~3.6`)
+
 
 #### Polylines
 
@@ -158,6 +165,73 @@ be on their own line.
 To prevent reference loops and to facilitate single-pass parsers, only backward
 references are allowed. All references glyphs must have been previously defined.
 
+#### Whitespaces
+
+Some glyphs need additional whitespace following the glyph, or even consist of
+only whitespace (no polylines). The width of this whitespace can be specified
+for every glyph with the `~` sign (U+007E TILDE), followed by the desired width
+in the same unit as polylines.
+
+The most important space glyph (which every font file should contain) is " "
+(U+0020 SPACE). A typical font may use a width of 3.6 (40% of font height):
+
+    [0020] SPACE
+    ~3.6
+
+As global letter spacing is applied to every glyph (including whitespace glyphs),
+the total whitespace is the addition of both values (e.g. 3.6 + 1.8 = 5.4).
+
+Whitespace definitions are also inherited when referencing other glyphs (with
+"@", see above). If a glyph has multiple whitespace definitions (either direct
+or via references), only the last definition will be used by the parser.
+Inherited space definitions can be discarded by overriding them with `~0`.
+
+
+## Letter Spacing
+
+Generally the space between letters depends on the specific use-case and thus
+it's up to the application's font layout engine to determine the exact space.
+
+But to support layout engines in determining suitable letter spacing values,
+FontoBene allows to specify some spacing information directly in font files.
+This information helps to get nice looking texts with very low effort. There are
+three different options which allow to control letter spacing:
+
+1. **Global Letter Spacing:**
+
+   The parameter `letter_spacing` in the `[font]` section of the header defines
+   the letter spacing which should be put after every letter. A typical font may
+   use a letter spacing value of 1.8 (20% of font height).
+
+2. **Leading space of glyphs:**
+
+   Typically every glyph should start on the X-coordinate 0 (i.e. the leftmost
+   coordinate of every glyph is placed on X-coordinate 0). But if a specific
+   glyph requires more or less spacing in front of it, the font designer can
+   place such glyphs slightly more left or right to make the leftmost point of
+   the glyph either slightly negative (reduce leading space) or slightly
+   positive (increase leading space).
+
+3. **Trailing space of glyphs:**
+
+   Glyphs can also adjust the trailing space by using the `~` sign for
+   specifying additional spacing (see section "Whitespaces" above).
+
+The total space between two letters is calculated by the addition of these three
+parameters:
+
+1. Trailing space of first letter (`~` space definition)
+2. Global letter spacing (`letter_spacing` from header)
+3. Leading space (leftmost X-coordinate) of second letter
+
+### Stroke Width
+
+Even if FontoBene is a stroke font, it doesn't specify the stroke width. It's up
+to the application to choose a suitable stroke width (typically between 0% and
+30% of the text height). For the font designer it's important to always specify
+spacing for a stroke width of 0 to make fonts interchangeable. Applications may
+need to increase letter spacing accordingly when using thicker strokes.
+
 
 ## Format Versioning
 
@@ -189,6 +263,7 @@ TODO
 | version | The version of this font. SHOULD follow semantic versioning. | 1 | `0.4.1` |
 | author | The name of the copyright owner, in the format `Name <email>`. The email part is optional. | 0-n | `Max Müller <max@foo>` |
 | license | The SPDX identifier for the license of this font. Create multiple `license` entries if the font is published under multiple licenses. | 1-n | `Apache-2.0` |
+| letter_spacing | Global letter space width for every glyph. Same unit as for polylines. If not specified, 0 is assumed (no space). | 0-1 | `1.8` (= 20% of font height) |
 
 [unicode-10-spec]: http://www.unicode.org/versions/Unicode10.0.0/UnicodeStandard-10.0.pdf
 [semver-2]: http://semver.org/spec/v2.0.0.html
