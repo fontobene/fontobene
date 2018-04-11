@@ -52,6 +52,7 @@ Example:
     version = 1.0
     license = GPL-3.0+
     letter_spacing = 1.8
+    line_spacing = 16
 
     [user]
     last_modified = 2012-12-21
@@ -187,14 +188,23 @@ or via references), only the last definition will be used by the parser.
 Inherited space definitions can be discarded by overriding them with `~0`.
 
 
-## Letter Spacing
+## Font Layouting
 
-Generally the space between letters depends on the specific use-case and thus
-it's up to the application's font layout engine to determine the exact space.
+Generally, letter spacing (horizontal) and line spacing (vertical) depends on
+the specific use-case and thus it's up to the application's font layout engine
+to determine the exact spacing values.
 
-But to support layout engines in determining suitable letter spacing values,
-FontoBene allows to specify some spacing information directly in font files.
-This information helps to get nice looking texts with very low effort. There are
+But to support layout engines in determining suitable letter spacing and line
+spacing values, FontoBene allows to specify some spacing information directly in
+font files. This information helps to get nice looking texts with very low
+effort.
+
+Both letter spacing and line spacing values are given in the same unit as
+polylines (9 = 100% of cap height).
+
+### Letter Spacing
+
+Letter spacing is the horizontal space between two consecutive glyphs. There are
 three different options which allow to control letter spacing:
 
 1. **Global Letter Spacing:**
@@ -224,13 +234,24 @@ parameters:
 2. Global letter spacing (`letter_spacing` from header)
 3. Leading space (leftmost X-coordinate) of second letter
 
+### Line Spacing
+
+Line spacing is the vertical distance between the baselines of a multiline text.
+It can be defined with the `line_spacing` key in the header. A suitable value
+depends on the height of ascenders and descenders to avoid vertically
+overlapping characters. So the `line_spacing` value should be set to a value
+slightly greater than the addition of the cap height (9), highest ascender
+height and highest descender height. For a typical font this may be around 16
+(178% of cap height).
+
 ### Stroke Width
 
 Even if FontoBene is a stroke font, it doesn't specify the stroke width. It's up
 to the application to choose a suitable stroke width (typically between 0% and
 30% of the text height). For the font designer it's important to always specify
-spacing for a stroke width of 0 to make fonts interchangeable. Applications may
-need to increase letter spacing accordingly when using thicker strokes.
+letter spacing and line spacing values for a stroke width of 0 to make fonts
+interchangeable. Applications may need to increase these spacing values
+accordingly when using thicker strokes.
 
 
 ## Format Versioning
@@ -264,6 +285,7 @@ TODO
 | author | The name of the copyright owner, in the format `Name <email>`. The email part is optional. | 0-n | `Max Müller <max@foo>` |
 | license | The SPDX identifier for the license of this font. Create multiple `license` entries if the font is published under multiple licenses. | 1-n | `Apache-2.0` |
 | letter_spacing | Global letter space width for every glyph. Same unit as for polylines. If not specified, 0 is assumed (no space). | 0-1 | `1.8` (= 20% of font height) |
+| line_spacing | Vertical baseline distance of multiline texts. Same unit as for polylines. If not specified, 9 is assumed (no space). | 0-1 | `16` (= 178% of font height) |
 
 [unicode-10-spec]: http://www.unicode.org/versions/Unicode10.0.0/UnicodeStandard-10.0.pdf
 [semver-2]: http://semver.org/spec/v2.0.0.html
