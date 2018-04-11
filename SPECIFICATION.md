@@ -313,5 +313,67 @@ TODO
 | letter_spacing | Global letter space width for every glyph. Same unit as for polylines. If not specified, 0 is assumed (no space). | 0-1 | `1.8` (= 20% of font height) |
 | line_spacing | Vertical baseline distance of multiline texts. Same unit as for polylines. If not specified, 9 is assumed (no space). | 0-1 | `16` (= 178% of font height) |
 
+
+## Example
+
+This is a very simple example font with only 6 glyphs. Its purpose is to
+demonstrate the features of the FontoBene format. Of course nobody should form
+a "B" glyph by inheriting from the "I" glyph in a real font. If you're
+interested in realistic examples of FonotBene fonts, please take a look at the
+[fontobene-fonts repository][fonts-repo] instead.
+
+```fontobene
+[format]
+format = FontoBene
+format_version = 1.0.0
+
+[font]
+id = spec-example
+name = FontoBene Specification Example
+description = This is an example font with only 6 glyphs included to demonstrate the FontoBene format.
+version = 1.0.0
+license = CC0-1.0
+
+---
+
+[0020] Space
+# A space character is 3.6 units wide
+~3.6
+
+[0041] A
+# An "A" consists of two simple polylines
+0,0;3,9;6,0
+1.2,3.6;4.8;3.6
+
+[0049] I
+# A sans-serif "I": Just a straight vertical line
+0,0;0,9
+# Add a little horizontal space following the glyph
+~0.5
+
+[0042] B
+# The B character can be constructed by inheriting the "I"...
+@0049
+# ...and adding two arc segments with 155° angle (=7.75) on the right side.
+0,4.5,7.75;0,0
+0,4.5,-7.75;0,9
+# Cancel out the whitespace from "I".
+~0
+
+[005F] _
+# A simple underline and some whitespace
+0,0;3,0
+~0.25
+
+[004C] L
+# Inherit from both "I" and "_"
+@0049
+@005F
+# Note that we inherit 0.25 units of whitespace as defined
+# by the "_", since it is listed after the "I".
+```
+
+
 [unicode-10-spec]: http://www.unicode.org/versions/Unicode10.0.0/UnicodeStandard-10.0.pdf
 [semver-2]: http://semver.org/spec/v2.0.0.html
+[fonts-repo]: https://github.com/fontobene/fontobene-fonts/
