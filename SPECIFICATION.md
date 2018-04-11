@@ -83,8 +83,9 @@ Points*][unicode-10-spec]:
 > Leading zeros are omitted, unless the code point would have fewer than four
 > hexadecimal digits—for example, U+0001, U+0012, U+0123, U+1234, U+12345,
 > U+102345.
->
-> The U+ may be omitted for brevity in tables or when denoting ranges.
+
+In contrast to the Unicode Standard, in FontoBene the `U+` prefix MUST NOT be
+used.
 
 The glyph declaration is followed by a list of glyph references, polylines or
 whitespace definitions, each on a single line. The order and quantity of these
