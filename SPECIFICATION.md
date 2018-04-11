@@ -108,18 +108,6 @@ If a coordinate is a whole number, the decimal mark and the fractional part of
 the number may be omitted. If the integer part is zero and there is a fractional
 part, the zero may be omitted (e.g. `-.5` instead of `-0.5`).
 
-The coordinate system starts at the lower left corner. Positive X coordinates
-point to the right. Positive Y coordinates point to the top. Negative
-coordinates are not allowed.
-
-          Y
-    (0,Y) +
-          |
-          |
-          +-----+ X
-      (0,0)   (X,0)
-
-The example above would draw the pointy "outer frame" of the character "A".
 Here is the complete definition of the glyph for the character "LATIN CAPITAL
 LETTER A (U+0041)":
 
@@ -252,6 +240,33 @@ to the application to choose a suitable stroke width (typically between 0% and
 letter spacing and line spacing values for a stroke width of 0 to make fonts
 interchangeable. Applications may need to increase these spacing values
 accordingly when using thicker strokes.
+
+
+## Glyph Coordinate System
+
+The coordinate system of glyphs starts at the lower left corner. Positive X
+coordinates point to the right. Positive Y coordinates point to the top. A value
+of 9 means 100% of the cap height (i.e. the coordinate system is scaled with
+factor 9). This system leads to more compact font files as many coordinates can
+be expressed by a single digit.
+
+          Y
+    (0,9) +
+          |
+          |
+          +-----+ X
+      (0,0)   (9,0)
+
+Typical glyphs use the X axis (Y=0) as the baseline and are drawn mostly inside
+the area (0,0)..(9,9). Coordinates outside this area are allowed, e.g. for
+ascenders and descenders. In addition, typical glyphs are left aligned to the Y
+axis (X=0). Glyphs that are not aligned to the Y axis have an impact on letter
+spacing, see section "Letter Spacing" for details.
+
+Following image illustrates where the baseline (Y=0) and cap height (Y=9) are
+located:
+
+![glyph geometry](images/glyph_geometry.png)
 
 
 ## Format Versioning
