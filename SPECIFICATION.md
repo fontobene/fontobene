@@ -1,7 +1,17 @@
 # The FontoBene Font Format, Version 1.0-WIP
 
 
-## Introduction
+## Contents
+
+* [1. Introduction](#introduction)
+* [2. High Level Format Description](#highlevel)
+* [3. Font Layouting](#layouting)
+* [4. Glyph Coordinate System](#coordinate-system)
+* [5. Format Versioning](#versioning)
+* [6. Formal Specification](#specification)
+
+
+## <a name="introduction"></a> 1. Introduction
 
 FontoBene is a vector font format. It only uses strokes to form glyphs, in
 order for easy rendering in systems that cannot easily deal with more complex
@@ -15,7 +25,7 @@ quadratic / cubic curves.
 The main inspiration for this font format was the LFF font used by LibreCAD.
 
 
-## High Level Format Description
+## <a name="highlevel"></a> 2. High Level Format Description
 
 Every FontoBene font file consists of UTF-8 encoded text. The lines are
 separated by newlines (U+000A LINE FEED). It starts with a header, followed by
@@ -26,7 +36,7 @@ number sign (`#`). Everything on that line will be ignored by the parser.
 Inline comments are not allowed.
 
 
-### Header
+### 2.1. Header
 
 The header consists of INI style sections with key-value pairs. Key and value
 are separated by an equal sign (`=`). Both keys and values are strings. All
@@ -61,7 +71,7 @@ Example:
     ---
 
 
-### Body
+### 2.2. Body
 
 The header is separated from the body by three hyphens (U+002D HYPHEN-MINUS) on
 a single line (`---`). The body consists of glyph definition blocks separated
@@ -96,7 +106,7 @@ three things MUST be as following:
 3. 0-1 whitespace definitions (e.g. `~3.6`)
 
 
-#### Polylines
+#### 2.2.1. Polylines
 
 A polyline looks like this:
 
@@ -116,7 +126,7 @@ LETTER A (U+0041)":
     0.8333,2.5;5.1666,2.5
     0,0;3,9;6,0
 
-##### Circular Arc Segments
+##### 2.2.1.1. Circular Arc Segments
 
 In addition to straight lines, polylines can contain circular arc segments.
 This is done by adding a third parameter, called *bulge*, to the **start
@@ -135,7 +145,7 @@ Example:
     1,0;1,7.5,-4.5;2.5,9;3,9
     0,6;3,6
 
-#### References
+#### 2.2.2. References
 
 Because many glyphs are very similar, references may be used as "includes".
 References start with the "@" symbol (U+0040), followed by a codepoint. Here is
@@ -155,7 +165,7 @@ be on their own line.
 To prevent reference loops and to facilitate single-pass parsers, only backward
 references are allowed. All references glyphs must have been previously defined.
 
-#### Whitespaces
+#### 2.2.3. Whitespaces
 
 Some glyphs need additional whitespace following the glyph, or even consist of
 only whitespace (no polylines). The width of this whitespace can be specified
@@ -177,7 +187,7 @@ or via references), only the last definition will be used by the parser.
 Inherited space definitions can be discarded by overriding them with `~0`.
 
 
-## Font Layouting
+## <a name="layouting"></a> 3. Font Layouting
 
 Generally, letter spacing (horizontal) and line spacing (vertical) depends on
 the specific use-case and thus it's up to the application's font layout engine
@@ -191,7 +201,7 @@ effort.
 Both letter spacing and line spacing values are given in the same unit as
 polylines (9 = 100% of cap height).
 
-### Letter Spacing
+### 3.1. Letter Spacing
 
 Letter spacing is the horizontal space between two consecutive glyphs. There are
 three different options which allow to control letter spacing:
@@ -223,7 +233,7 @@ parameters:
 2. Global letter spacing (`letter_spacing` from header)
 3. Leading space (leftmost X-coordinate) of second letter
 
-### Line Spacing
+### 3.2. Line Spacing
 
 Line spacing is the vertical distance between the baselines of a multiline text.
 It can be defined with the `line_spacing` key in the header. A suitable value
@@ -233,7 +243,7 @@ slightly greater than the addition of the cap height (9), highest ascender
 height and highest descender height. For a typical font this may be around 16
 (178% of cap height).
 
-### Stroke Width
+### 3.3. Stroke Width
 
 Even if FontoBene is a stroke font, it doesn't specify the stroke width. It's up
 to the application to choose a suitable stroke width (typically between 0% and
@@ -243,7 +253,7 @@ interchangeable. Applications may need to increase these spacing values
 accordingly when using thicker strokes.
 
 
-## Glyph Coordinate System
+## <a name="coordinate-system"></a> 4. Glyph Coordinate System
 
 The coordinate system of glyphs starts at the lower left corner. Positive X
 coordinates point to the right. Positive Y coordinates point to the top. A value
@@ -270,27 +280,27 @@ located:
 ![glyph geometry](images/glyph_geometry.png)
 
 
-## Format Versioning
+## <a name="versioning"></a> 5. Format Versioning
 
 The FontoBene format follows [Semantic Versioning version 2][semver-2].
 
 
-## Formal Specification
+## <a name="specification"></a> 6. Formal Specification
 
-### Grammar (PEG)
+### 6.1. Grammar (PEG)
 
 TODO
 
-### Standardized Headers
+### 6.2. Standardized Headers
 
-#### [format]
+**[format]**
 
 | Name | Description | Count | Example |
 | --- | --- | --- | --- |
 | format | The string "FontoBene". | 1 | `FontoBene` |
 | format_version | The version of the FontoBene format that this file adheres to. | 1 | `1.1.2` |
 
-#### [font]
+**[font]**
 
 | Name | Description | Count | Example |
 | --- | --- | --- | --- |
