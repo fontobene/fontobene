@@ -4,7 +4,7 @@
 ## Contents
 
 * [1. Introduction](#introduction)
-* [2. High Level Format Description](#highlevel)
+* [2. Format Description](#format)
 * [3. Font Layouting](#layouting)
 * [4. Glyph Coordinate System](#coordinate-system)
 * [5. Format Versioning](#versioning)
@@ -25,7 +25,34 @@ quadratic / cubic curves.
 The main inspiration for this font format was the LFF font used by LibreCAD.
 
 
-## <a name="highlevel"></a> 2. High Level Format Description
+## <a name="coordinate-system"></a> 2. Glyph Coordinate System
+
+The coordinate system of glyphs starts at the lower left corner. Positive X
+coordinates point to the right. Positive Y coordinates point to the top. A value
+of 9 means 100% of the cap height (i.e. the coordinate system is scaled with
+factor 9). This system leads to more compact font files as many coordinates can
+be expressed by a single digit.
+
+          Y
+    (0,9) +
+          |
+          |
+          +-----+ X
+      (0,0)   (9,0)
+
+Typical glyphs use the X axis (Y=0) as the baseline and are drawn mostly inside
+the area (0,0)..(9,9). Coordinates outside this area are allowed, e.g. for
+ascenders and descenders. In addition, typical glyphs are left aligned to the Y
+axis (X=0). Glyphs that are not aligned to the Y axis have an impact on letter
+spacing, see section "Letter Spacing" for details.
+
+Following image illustrates where the baseline (Y=0) and cap height (Y=9) are
+located:
+
+![glyph geometry](images/glyph_geometry.png)
+
+
+## <a name="format"></a> 3. Format Description
 
 Every FontoBene font file consists of UTF-8 encoded text. The lines are
 separated by newlines (U+000A LINE FEED). It starts with a header, followed by
