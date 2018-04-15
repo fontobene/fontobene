@@ -4,9 +4,9 @@
 ## Contents
 
 * [1. Introduction](#introduction)
-* [2. Format Description](#format)
-* [3. Font Layouting](#layouting)
-* [4. Glyph Coordinate System](#coordinate-system)
+* [2. Glyph Coordinate System](#coordinate-system)
+* [3. Format Description](#format)
+* [4. Font Layouting](#layouting)
 * [5. Format Versioning](#versioning)
 * [6. Formal Specification](#specification)
 
@@ -63,7 +63,7 @@ number sign (`#`). Everything on that line will be ignored by the parser.
 Inline comments are not allowed.
 
 
-### 2.1. Header
+### 3.1. Header
 
 The header consists of INI style sections with key-value pairs. Key and value
 are separated by an equal sign (`=`). Both keys and values are strings. All
@@ -98,7 +98,7 @@ Example:
     ---
 
 
-### 2.2. Body
+### 3.2. Body
 
 The header is separated from the body by three hyphens (U+002D HYPHEN-MINUS) on
 a single line (`---`). The body consists of glyph definition blocks separated
@@ -133,7 +133,7 @@ three things MUST be as following:
 3. 0-1 whitespace definitions (e.g. `~3.6`)
 
 
-#### 2.2.1. Polylines
+#### 3.2.1. Polylines
 
 A polyline looks like this:
 
@@ -153,7 +153,7 @@ LETTER A (U+0041)":
     0.8333,2.5;5.1666,2.5
     0,0;3,9;6,0
 
-##### 2.2.1.1. Circular Arc Segments
+##### 3.2.1.1. Circular Arc Segments
 
 In addition to straight lines, polylines can contain circular arc segments.
 This is done by adding a third parameter, called *bulge*, to the **start
@@ -172,7 +172,7 @@ Example:
     1,0;1,7.5,-4.5;2.5,9;3,9
     0,6;3,6
 
-#### 2.2.2. References
+#### 3.2.2. References
 
 Because many glyphs are very similar, references may be used as "includes".
 References start with the "@" symbol (U+0040), followed by a codepoint. Here is
@@ -192,7 +192,7 @@ be on their own line.
 To prevent reference loops and to facilitate single-pass parsers, only backward
 references are allowed. All references glyphs must have been previously defined.
 
-#### 2.2.3. Whitespaces
+#### 3.2.3. Whitespaces
 
 Some glyphs need additional whitespace following the glyph, or even consist of
 only whitespace (no polylines). The width of this whitespace can be specified
@@ -214,7 +214,7 @@ or via references), only the last definition will be used by the parser.
 Inherited space definitions can be discarded by overriding them with `~0`.
 
 
-## <a name="layouting"></a> 3. Font Layouting
+## <a name="layouting"></a> 4. Font Layouting
 
 Generally, letter spacing (horizontal) and line spacing (vertical) depends on
 the specific use-case and thus it's up to the application's font layout engine
@@ -228,7 +228,7 @@ effort.
 Both letter spacing and line spacing values are given in the same unit as
 polylines (9 = 100% of cap height).
 
-### 3.1. Letter Spacing
+### 4.1. Letter Spacing
 
 Letter spacing is the horizontal space between two consecutive glyphs. There are
 three different options which allow to control letter spacing:
@@ -260,7 +260,7 @@ parameters:
 2. Global letter spacing (`letter_spacing` from header)
 3. Leading space (leftmost X-coordinate) of second letter
 
-### 3.2. Line Spacing
+### 4.2. Line Spacing
 
 Line spacing is the vertical distance between the baselines of a multiline text.
 It can be defined with the `line_spacing` key in the header. A suitable value
@@ -270,7 +270,7 @@ slightly greater than the addition of the cap height (9), highest ascender
 height and highest descender height. For a typical font this may be around 16
 (178% of cap height).
 
-### 3.3. Stroke Width
+### 4.3. Stroke Width
 
 Even if FontoBene is a stroke font, it doesn't specify the stroke width. It's up
 to the application to choose a suitable stroke width (typically between 0% and
@@ -278,33 +278,6 @@ to the application to choose a suitable stroke width (typically between 0% and
 letter spacing and line spacing values for a stroke width of 0 to make fonts
 interchangeable. Applications may need to increase these spacing values
 accordingly when using thicker strokes.
-
-
-## <a name="coordinate-system"></a> 4. Glyph Coordinate System
-
-The coordinate system of glyphs starts at the lower left corner. Positive X
-coordinates point to the right. Positive Y coordinates point to the top. A value
-of 9 means 100% of the cap height (i.e. the coordinate system is scaled with
-factor 9). This system leads to more compact font files as many coordinates can
-be expressed by a single digit.
-
-          Y
-    (0,9) +
-          |
-          |
-          +-----+ X
-      (0,0)   (9,0)
-
-Typical glyphs use the X axis (Y=0) as the baseline and are drawn mostly inside
-the area (0,0)..(9,9). Coordinates outside this area are allowed, e.g. for
-ascenders and descenders. In addition, typical glyphs are left aligned to the Y
-axis (X=0). Glyphs that are not aligned to the Y axis have an impact on letter
-spacing, see section "Letter Spacing" for details.
-
-Following image illustrates where the baseline (Y=0) and cap height (Y=9) are
-located:
-
-![glyph geometry](images/glyph_geometry.png)
 
 
 ## <a name="versioning"></a> 5. Format Versioning
