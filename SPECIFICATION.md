@@ -9,6 +9,7 @@
 * [4. Font Layouting](#layouting)
 * [5. Format Versioning](#versioning)
 * [6. Formal Specification](#specification)
+* [7. Example](#example)
 
 
 ## <a name="introduction"></a> 1. Introduction
@@ -314,7 +315,7 @@ TODO
 | line_spacing | Vertical baseline distance of multiline texts. Same unit as for polylines. If not specified, 9 is assumed (no space). | 0-1 | `16` (= 178% of font height) |
 
 
-## Example
+## <a name="example"></a> 7. Example
 
 This is a very simple example font with only 6 glyphs. Its purpose is to
 demonstrate the features of the FontoBene format. Of course nobody should form
