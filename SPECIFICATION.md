@@ -231,8 +231,9 @@ polylines (9 = 100% of cap height).
 
 ### 4.1. Letter Spacing
 
-Letter spacing is the horizontal space between two consecutive glyphs. There are
-three different options which allow to control letter spacing:
+Letter spacing is the horizontal space between two consecutive glyphs. There
+are three different options which allow to control letter spacing of
+proportional (=non-monospace) fonts:
 
 1. **Global Letter Spacing:**
 
@@ -254,12 +255,32 @@ three different options which allow to control letter spacing:
    Glyphs can also adjust the trailing space by using the `~` sign for
    specifying additional spacing (see section "Whitespaces" above).
 
-The total space between two letters is calculated by the addition of these three
-parameters:
+### 4.1.1. Proportional Fonts
+
+The total space between two letters of a proportional (non-monospace) font is
+calculated by the addition of these three parameters:
 
 1. Trailing space of first letter (`~` space definition)
 2. Global letter spacing (`letter_spacing` from header)
 3. Leading space (leftmost X-coordinate) of second letter
+
+### 4.1.2. Monospace Fonts
+
+If a font specifies the `monospace_width` header (see subsection "Standardized
+Headers"), then that font SHOULD be layouted as a monospace font. The value of
+the `monospace_width` header corresponds to the width of every glyph's bounding
+box, excluding global spacing.
+
+When rendering a monospace font, glyphs MUST be horizontally centered in the
+fixed-width bounding box. Leading and trailing space (as described in the
+subsection "Letter Spacing") MAY be used to horizontally offset the glyph in
+its bounding box. Glyphs that are wider than the bounding box SHOULD also be
+centered. Such glyphs SHOULD result in a warning being reported to the user.
+
+Between the bounding boxes of monospace glyphs, global letter spacing applies.
+
+When designing a monospace font, glyphs (including leading and trailing space)
+SHOULD NOT be wider than the value defined by `monospace_width`.
 
 ### 4.2. Line Spacing
 
@@ -313,6 +334,7 @@ TODO
 | license | The SPDX identifier for the license of this font. Create multiple `license` entries if the font is published under multiple licenses. | 1-n | `Apache-2.0` |
 | letter_spacing | Global letter space width for every glyph. Same unit as for polylines. If not specified, 0 is assumed (no space). | 0-1 | `1.8` (= 20% of font height) |
 | line_spacing | Vertical baseline distance of multiline texts. Same unit as for polylines. If not specified, 9 is assumed (no space). | 0-1 | `16` (= 178% of font height) |
+| monospace_width | Specifying this header marks the font as a monospace font. The value specifies the width of all glyphs (excluding global spacing). | 0-1 | `6` (= 67% of font height) |
 
 
 ## <a name="example"></a> 7. Example
