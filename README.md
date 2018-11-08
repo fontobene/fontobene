@@ -12,9 +12,6 @@ quadratic / cubic curves.
 You can find the current version of the specification at
 [SPECIFICATION.md](SPECIFICATION.md).
 
-**The specification is still work in progress. It will be stabilized in the
-coming weeks, together with a formal grammar and a reference implementation.**
-
 ## License
 
 [![CC0](http://i.creativecommons.org/p/zero/1.0/88x31.png)](http://creativecommons.org/publicdomain/zero/1.0/)

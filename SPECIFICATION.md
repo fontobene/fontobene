@@ -1,4 +1,4 @@
-# The FontoBene Font Format, Version 1.0-WIP
+# The FontoBene Font Format, Version 1.0
 
 
 ## Contents
@@ -348,7 +348,7 @@ interested in realistic examples of FonotBene fonts, please take a look at the
 ```fontobene
 [format]
 format = FontoBene
-format_version = 1.0.0
+format_version = 1.0
 
 [font]
 id = spec-example
