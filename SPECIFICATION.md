@@ -1,4 +1,4 @@
-# The FontoBene Font Format, Version 1.0
+# The FontoBene Font Format, Version 1.0.0
 
 
 ## Contents
@@ -80,14 +80,14 @@ Example:
 
     [format]
     format = FontoBene
-    format_version = 1.0
+    format_version = 1.0.0
 
     [font]
     id = librepcb
     name = LibrePCB Font
     description = This is the default font of LibrePCB.
     author = Max Müller <max@example.com>
-    version = 1.0
+    version = 1.0.0
     license = GPL-3.0+
     letter_spacing = 1.8
     line_spacing = 16
@@ -348,7 +348,7 @@ interested in realistic examples of FonotBene fonts, please take a look at the
 ```fontobene
 [format]
 format = FontoBene
-format_version = 1.0
+format_version = 1.0.0
 
 [font]
 id = spec-example
